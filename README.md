@@ -260,3 +260,18 @@ function Profile() {
   return <div>hello {data.name}!</div>
 }
 ```
+
+## Built-In CSS Support
+*That seems like some good stuff,  good ol' react had some problems with declaring variables in JS and SCSS, for example defaultFontSize had to be declared in CSS and if used for styling React, inside JS*
+
+Next.js allows you to import CSS files from a JavaScript file. This is possible because Next.js extends the concept of [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) beyond JavaScript.
+
+`styles.css` (imported inside _app.js) will apply to all pages and components in your application. Due to the global nature of stylesheets, and to avoid conflicts, you may **only import them inside  [`pages/_app.js`](https://nextjs.org/docs/advanced-features/custom-app)**.
+
+### Adding Component-Level CSS
+
+Next.js supports  [CSS Modules](https://github.com/css-modules/css-modules)  using the  `[name].module.css`  file naming convention.
+
+### Sass Support
+
+Next.js allows you to import Sass using both the  `.scss`  and  `.sass`  extensions. You can use component-level Sass via CSS Modules and the  `.module.scss`  or  `.module.sass`  extension.

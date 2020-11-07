@@ -275,3 +275,51 @@ Next.js supports  [CSS Modules](https://github.com/css-modules/css-modules)  usi
 ### Sass Support
 
 Next.js allows you to import Sass using both the  `.scss`  and  `.sass`  extensions. You can use component-level Sass via CSS Modules and the  `.module.scss`  or  `.module.sass`  extension.
+
+## Image Optimization
+
+*Use it for image optimation for different devices* 
+
+### Image Component
+
+To add an image to your application, import the  [`next/image`](https://nextjs.org/docs/api-reference/next/image)  component:
+
+```jsx
+import Image from 'next/image'
+
+function Home() {
+  return (
+    <>
+      <h1>My Homepage</h1>
+      <Image
+        src="/me.png"
+        alt="Picture of the author"
+        width={500}
+        height={500}
+      />
+      <p>Welcome to my homepage!</p>
+    </>
+  )
+}
+
+export default Home
+```
+
+### Configuration
+*See later what it helps for each device*
+
+In addition to  [using properties](https://nextjs.org/docs/api-reference/next/image)  available to the  `next/image`  component, you can optionally configure Image Optimization for more advanced use cases via  `next.config.js`.
+
+If no configuration is provided, the following default configuration will be used.
+
+```js
+module.exports = {
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: [],
+    path: '/_next/image',
+    loader: 'default',
+  },
+}
+```

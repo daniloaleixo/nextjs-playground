@@ -1,10 +1,6 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-* [Considerations](https://github.com/daniloaleixo/nextjs-playground#considerations)
-  * [Pages](https://github.com/daniloaleixo/nextjs-playground#pages)
-  * [Data Fetching](https://github.com/daniloaleixo/nextjs-playground#data-fetching)
-  
   
 
 # Getting Started
@@ -240,3 +236,27 @@ If `fallback` is `true` then if the path is not inside the JSON generated it wil
 *Next pre-render that pages at every request, so it is useful only for pages that cannot be cached by a CDN (search for an example, not fitting that much right now, because if the data is from the user I could use a generic fetch. What can be pre-rendered? Maybe a good way to use in some parts of the page like a white label site)*
 **NICE**: You can import modules in top-level scope for use in  `getServerSideProps`. Imports used in  `getServerSideProps`  will not be bundled for the client-side. This means you can write  **server-side code directly in  `getServerSideProps`**. This includes reading from the filesystem or a database.
 
+  
+
+### Fetching data on the client side
+
+*Normal react stuff for highly user dependent pages, like profile, dashboard, etc*
+
+The team behind Next.js has created a React hook for data fetching called  
+
+##### SWR
+*Definely use it*
+
+We highly recommend it if you’re fetching data on the client side. It handles caching, revalidation, focus tracking, refetching on interval, and more. And you can use it like so:
+
+```jsx
+import useSWR from 'swr'
+
+function Profile() {
+  const { data, error } = useSWR('/api/user', fetch)
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+  return <div>hello {data.name}!</div>
+}
+```

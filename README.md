@@ -230,3 +230,9 @@ If `fallback` is `false`, then any paths not returned by `getStaticPaths` will r
 If `fallback` is `true` then if the path is not inside the JSON generated it will load a fallback page (like loading), then next will generate the static content, add to the JSON and serve it (will be forever in the static generated "cache").
 
 *Fallback true is very useful when you have a very large number of static pages that depend on that (large e-commerce), the pre-render would take forever, so you select a small subset of pages, build them and when a client access a page not loaded, it will be generated and then available to other clients*
+
+
+### getServerSideProps
+*Next pre-render that pages at every request, so it is useful only for pages that cannot be cached by a CDN (search for an example, not fitting that much right now, because if the data is from the user I could use a generic fetch. What can be pre-rendered? Maybe a good way to use in some parts of the page like a white label site)*
+**NICE**: You can import modules in top-level scope for use in  `getServerSideProps`. Imports used in  `getServerSideProps`  will not be bundled for the client-side. This means you can write  **server-side code directly in  `getServerSideProps`**. This includes reading from the filesystem or a database.
+

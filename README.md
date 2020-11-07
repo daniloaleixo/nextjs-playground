@@ -203,3 +203,30 @@ You can use  [this tool](https://next-code-elimination.now.sh/)  to verify what 
 When a page with  `getStaticProps`  is pre-rendered at build time, in addition to the page HTML file, Next.js generates a JSON file holding the result of running  `getStaticProps`.
 
 This JSON file will be used in client-side routing through  `next/link`  ([documentation](https://nextjs.org/docs/api-reference/next/link)) or  `next/router`  ([documentation](https://nextjs.org/docs/api-reference/next/router)). When you navigate to a page that’s pre-rendered using  `getStaticProps`, Next.js fetches this JSON file (pre-computed at build time) and uses it as the props for the page component. This means that client-side page transitions will  **not**  call  `getStaticProps`  as only the exported JSON is used.
+
+
+### getStaticPaths
+*Used with getStaticProps to generate the static pages*
+
+If a page has dynamic routes ([documentation](https://nextjs.org/docs/routing/dynamic-routes)) and uses `getStaticProps` it needs to define a list of paths that have to be rendered to HTML at build time.
+
+The getStaticPaths must have two keys inside: **paths** and **fallback**
+
+##### Paths
+Determine which paths will be pre-rendered. For example, suppose that you have a page that uses dynamic routes named `pages/posts/[id].js`. If you export `getStaticPaths` from this page and return the following for `paths`:
+```js
+return {
+  paths: [
+    { params: { id: '1' } },
+    { params: { id: '2' } }
+  ],
+  fallback: ...
+}
+```
+Then Next.js will statically generate  `posts/1`  and  `posts/2`  at build time using the page component in  `pages/posts/[id].js`.
+
+##### Fallback
+If `fallback` is `false`, then any paths not returned by `getStaticPaths` will result in a **404 page**.
+If `fallback` is `true` then if the path is not inside the JSON generated it will load a fallback page (like loading), then next will generate the static content, add to the JSON and serve it (will be forever in the static generated "cache").
+
+*Fallback true is very useful when you have a very large number of static pages that depend on that (large e-commerce), the pre-render would take forever, so you select a small subset of pages, build them and when a client access a page not loaded, it will be generated and then available to other clients*

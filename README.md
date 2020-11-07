@@ -1,6 +1,10 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+* [Considerations](https://github.com/daniloaleixo/nextjs-playground#considerations)
+  * [Pages](https://github.com/daniloaleixo/nextjs-playground#pages)
+  * [Data Fetching](https://github.com/daniloaleixo/nextjs-playground#data-fetching)
+  
   
 
 # Getting Started

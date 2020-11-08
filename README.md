@@ -26,8 +26,9 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
   * For now I prefer to stick with the idea that React does work for small-medium size project and not for large ones
   * Don't know how Redux of state management libraries work right now, it doesn't see to fit so much
   ##### Cons
-  * Seems kind funky the way the routing works, treating every page literally like a new page, makes the developer have to manually include a header **in every fucking page**, got it the way the framework should work and why it is not like react-router, but it is definetely a drawback
+  * Seems kind funky the way the routing works, treating every page literally like a new page, makes the developer have to manually include a header **in every fucking page**, got it the way the framework should work and why it is not like react-router, but it is definetely a drawback. *UPDATE: Actually I could use it but only inside _app.js*
   * Heard about animation issues
+  * Kinda funky for using middlewares in API, for now it seems that you have to manually replicate the middleware implementation (check it)
 
 ## Pages
 
@@ -288,3 +289,46 @@ module.exports = {
   },
 }
 ```
+
+## Static File Serving
+*Maybe a good way to use other HTML generated pages would have to check it*
+
+Next.js can serve static files, like images, under a folder called  `public`  in the root directory. Files inside  `public`  can then be referenced by your code starting from the base URL (`/`).
+
+For example, if you add an image to  `public/my-image.png`, the following code will access the image:
+
+```jsx
+function MyImage() {
+  return <img src="/my-image.png" alt="my image" />
+}
+
+export default MyImage
+
+```
+
+This folder is also useful for  `robots.txt`,  `favicon.ico`, Google Site Verification, and any other static files (including  `.html`)!
+
+## Environment Variables
+*That's great, React was very difficult to expose environment variables. NOTE: Use NEXT_PUBLIC_ prefix when I want this var to be used by client *
+
+Next.js has built-in support for loading environment variables from `.env.local` into `process.env`.
+
+### Exposing Environment Variables to the Browser
+
+By default all environment variables loaded through  `.env.local`  are only available in the Node.js environment, meaning they won't be exposed to the browser.
+
+In order to expose a variable to the browser you have to prefix the variable with  `NEXT_PUBLIC_`. For example:
+
+```bash
+NEXT_PUBLIC_ANALYTICS_ID=abcdefghijk
+
+```
+
+### Default Environment Variables
+
+In general only one  `.env.local`  file is needed. However, sometimes you might want to add some defaults for the  `development`  (`next dev`) or  `production`  (`next start`) environment.
+
+Next.js allows you to set defaults in  `.env`  (all environments),  `.env.development`  (development environment), and  `.env.production`  (production environment).
+
+`.env.local`  always overrides the defaults set.
+
